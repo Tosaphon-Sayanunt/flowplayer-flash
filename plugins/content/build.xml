@@ -9,7 +9,7 @@
 	<property name="flowplayer_lib" value="${devkit-dir}/flowplayer.swc" />
 	
 
-	<property name="shortname" value="content" />
+	<property name="shortname" value="content.thaitv" />
     <property name="basename" value="flowplayer.${shortname}" />
     <property name="releasedir" value="${basename}" />
 	<property name="plugin-binary" value="${basename}.swf" />
