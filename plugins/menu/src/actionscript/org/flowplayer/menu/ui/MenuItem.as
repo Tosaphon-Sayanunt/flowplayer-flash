@@ -19,6 +19,7 @@ package org.flowplayer.menu.ui {
     import flash.text.TextField;
     import flash.text.TextFieldAutoSize;
     import flash.text.TextFieldType;
+    import flash.text.TextFormatAlign;
 
     import fp.TickMark;
 
@@ -78,10 +79,12 @@ package org.flowplayer.menu.ui {
                     addChild(_tickMark);
                 }
             }
+
             _text = addChild(TextUtil.createTextField(false, null, 12, true)) as TextField;
             _text.selectable = false;
             _text.type = TextFieldType.DYNAMIC;
             _text.textColor = config.fontColor;
+            //_text.textColor = 0x3399FF;
             _text.blendMode = BlendMode.LAYER;
             _text.autoSize = TextFieldAutoSize.CENTER;
             _text.wordWrap = true;
@@ -89,6 +92,7 @@ package org.flowplayer.menu.ui {
             _text.antiAliasType = AntiAliasType.ADVANCED;
             _text.condenseWhite = true;
             _text.defaultTextFormat.bold = false;
+            _text.defaultTextFormat.align = TextFormatAlign.CENTER;
 
             _text.htmlText = itemConfig.label;
             addChild(_text);
@@ -96,6 +100,7 @@ package org.flowplayer.menu.ui {
             if (config.imageUrl) {
                 loadImage();
             }
+            
         }
 
         private function loadImage():void {
@@ -133,10 +138,10 @@ package org.flowplayer.menu.ui {
             }
 
             if (itemConfig.toggle) {
-                _tickMark.height = 12;
+                _tickMark.height = 9;
                 _tickMark.scaleX = _tickMark.scaleY;
                 Arrange.center(_tickMark, 0, height);
-                _tickMark.y = _tickMark.y - 2; // adjust it a bit
+                //_tickMark.y = _tickMark.y - 2; // adjust it a bit
                 _tickMark.x = _image ? (_image.x + _image.width) : _buffer;
                 //#498 resize the label text if a tickmark is configured.
                 _text.width = _text.width - _tickMark.width;
@@ -144,7 +149,7 @@ package org.flowplayer.menu.ui {
                 Arrange.center(_text, 0, height);
             } else {
 
-                _text.x = _image ? (_image.x + _image.width + _buffer) : _buffer;
+                _text.x = _image ? (_image.x + _image.width + _buffer) : _buffer + 5;
                 Arrange.center(_text,  0, height);
             }
         }

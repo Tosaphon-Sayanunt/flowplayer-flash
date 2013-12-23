@@ -7,7 +7,7 @@
 	<property file="${devkit-dir}/plugin-build.properties" />
 	<import file="${devkit-dir}/plugin-build.xml"/>
 
-	<property name="shortname" value="menu" />
+	<property name="shortname" value="menu.thaitv" />
     <property name="basename" value="flowplayer.${shortname}" />
     <property name="releasedir" value="${basename}" />
 	<property name="plugin-binary" value="${basename}.swf" />

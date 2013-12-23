@@ -1,82 +1,1 @@
-/*
- * Author: Anssi Piirainen, api@iki.fi
- * This file is part of Flowplayer, http://flowplayer.org
- *
- * Copyright (c) 2011 Flowplayer Ltd
- *
- * Released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
-package org.flowplayer.menu.ui {
-
-    import flash.display.DisplayObject;
-    import flash.events.MouseEvent;
-
-    import fp.MenuButton;
-
-    import org.flowplayer.model.DisplayPluginModel;
-
-    import org.flowplayer.ui.dock.Dock;
-
-    import org.flowplayer.ui.buttons.ButtonEvent;
-    import org.flowplayer.ui.controllers.AbstractButtonController;
-import org.flowplayer.view.AnimationEngine;
-import org.flowplayer.view.Flowplayer;
-
-    public class MenuButtonController extends AbstractButtonController {
-        private var _menu:Menu;
-        private var _model:DisplayPluginModel;
-
-		public function MenuButtonController(player:Flowplayer,  menuModel:DisplayPluginModel) {
-            _player = player;
-            _menu = menuModel.getDisplayObject() as Menu;
-            _model = menuModel;
-		}
-		
-		override public function get name():String {
-			return "menu";
-		}
-
-		override public function get defaults():Object {
-			return {
-				tooltipEnabled: true,
-				tooltipLabel: "Menu",
-				visible: true,
-				enabled: true
-			};
-		}
-
-		override protected function get faceClass():Class {
-			// we could have return fp.NextButton but we need it as string for skinless controls
-			return MenuButton;
-		}
-
-		override protected function onButtonClicked(event:ButtonEvent):void {
-            var model:DisplayPluginModel = DisplayPluginModel(_player.pluginRegistry.getPlugin(_model.name));
-
-            var show:Boolean = _menu.alpha == 0 || ! _menu.visible || ! _menu.parent;
-            if (show) {
-                _menu.updateModelProp("display", "block");
-                log.debug("showing menu");
-                _menu.alpha = 0; // make sure the initial value before fade is sensible
-                _player.animationEngine.fadeIn(_menu);
-            } else {
-                log.debug("hiding menu");
-                _menu.alpha = 1; // make sure the initial value before fade is sensible
-                _player.animationEngine.fadeOut(_menu);
-            }
-//            setListeners(show);
-		}
-//
-//        private function setListeners(add:Boolean):void {
-//            var func:String = add ? "addEventListener" : "removeEventListener";
-//            _menu[func](MouseEvent.ROLL_OUT, onRollOut);
-//        }
-//
-//        private function onRollOut(event:MouseEvent):void {
-//            log.debug("onRollOut()");
-//            _menu.startAutoHide();
-//        }
-	}
-}
-
+﻿/* * Author: Anssi Piirainen, api@iki.fi * This file is part of Flowplayer, http://flowplayer.org * * Copyright (c) 2011 Flowplayer Ltd * * Released under the MIT License: * http://www.opensource.org/licenses/mit-license.php */package org.flowplayer.menu.ui {    import flash.display.DisplayObject;    import flash.events.MouseEvent;    import fp.MenuButton;    import org.flowplayer.model.DisplayPluginModel;    import org.flowplayer.ui.dock.Dock;    import org.flowplayer.ui.buttons.ButtonEvent;    import org.flowplayer.ui.controllers.AbstractButtonController;	import org.flowplayer.view.AnimationEngine;	import org.flowplayer.view.Flowplayer;		import fp.BitrateButton;	import fp.BitrateHDButton;	import org.flowplayer.ui.buttons.TooltipButtonConfig;		import flash.external.*;    public class MenuButtonController extends AbstractButtonController {        private var _menu:Menu;        private var _model:DisplayPluginModel;		public function MenuButtonController(player:Flowplayer,  menuModel:DisplayPluginModel) {            super();            	_player = player;            _menu = menuModel.getDisplayObject() as Menu;            _model = menuModel;                        ExternalInterface.addCallback("sendBitrateType", bitrateSetFromJS);		}				override protected function createWidget():void {						var normalButton:BitrateTooltipButton = new BitrateTooltipButton( 												new normalFaceClass(), 												_config as TooltipButtonConfig, 												_player.animationEngine,												_menu);            setAccessible(normalButton, "bitrate-normal");															var hdButton:BitrateTooltipButton = new BitrateTooltipButton(												new hdFaceClass(), 												_config as TooltipButtonConfig, 												_player.animationEngine,												_menu);										            setAccessible(hdButton,  "bitrate-hd");						_widget = new BitrateToggleButton(normalButton, hdButton);		}				override public function get name():String {			return "menu";		}		override public function get defaults():Object {			return {				tooltipEnabled: true,				tooltipLabel: "Menu",				visible: true,				enabled: true			};		}		public function get normalFaceClass():Class {			return BitrateButton;		}				public function get hdFaceClass():Class {			return BitrateHDButton;		}		override protected function onButtonClicked(event:ButtonEvent):void {//            var model:DisplayPluginModel = DisplayPluginModel(_player.pluginRegistry.getPlugin(_model.name));////            var show:Boolean = _menu.alpha == 0 || ! _menu.visible || ! _menu.parent;//            if (show) {//                _menu.updateModelProp("display", "block");//                log.debug("showing menu");//                _menu.alpha = 0; // make sure the initial value before fade is sensible//                _player.animationEngine.fadeTo(_menu, 0.7);//                //                ExternalInterface.call("thaitv.setControlAutohide", false);//            } else {//                log.debug("hiding menu");//                _menu.alpha = 0.7; // make sure the initial value before fade is sensible//                _player.animationEngine.fadeOut(_menu);//                ExternalInterface.call("thaitv.setControlAutohide", true);//            }//            setListeners(show);		}////        private function setListeners(add:Boolean):void {//            var func:String = add ? "addEventListener" : "removeEventListener";//            _menu[func](MouseEvent.ROLL_OUT, onRollOut);//        }////        private function onRollOut(event:MouseEvent):void {//            log.debug("onRollOut()");//            _menu.startAutoHide();//        }				//override protected function addWidgetListeners():void {		//	_widget.addEventListener(ButtonEvent.CLICK, onButtonClicked);		//}				private function bitrateSetFromJS(bType:Number):void {            (_widget as BitrateToggleButton).bitrateType = bType;        }	}}
