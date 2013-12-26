@@ -20,6 +20,8 @@ package org.flowplayer.menu.ui {
     import flash.text.TextFieldAutoSize;
     import flash.text.TextFieldType;
     import flash.text.TextFormatAlign;
+    import flash.text.Font;
+    import flash.text.StyleSheet;
 
     import fp.TickMark;
 
@@ -40,10 +42,17 @@ package org.flowplayer.menu.ui {
         private var _player:Flowplayer;
 
         private var _buffer:int = 10;
+        
+        //embed font
+		[Embed(source="../cmprasanmit.ttf", fontName = "cmprasanmit", fontFamily="cmprasanmit", mimeType="application/x-font-truetype", 
+    embedAsCFF="false", unicodeRange="U+0020-007E,U+0E01-0E5B")] 
+        public var cmprasanmitFont:Class;
 
         public function MenuItem(player:Flowplayer, config:MenuItemConfig, animationEngine:AnimationEngine) {
             _player = player;
             super(config, animationEngine);
+            
+            Font.registerFont(cmprasanmitFont);
         }
 
         override protected function onClicked(event:MouseEvent):void {
@@ -79,8 +88,11 @@ package org.flowplayer.menu.ui {
                     addChild(_tickMark);
                 }
             }
-
+            
+            var style:StyleSheet = new StyleSheet();
+			style.setStyle(".menuItem", {fontFamily: "cmprasanmit", fontSize: 18, fontWeight:"bold"});
             _text = addChild(TextUtil.createTextField(false, null, 12, true)) as TextField;
+            _text.embedFonts = true;
             _text.selectable = false;
             _text.type = TextFieldType.DYNAMIC;
             _text.textColor = config.fontColor;
@@ -91,10 +103,11 @@ package org.flowplayer.menu.ui {
             _text.multiline = true;
             _text.antiAliasType = AntiAliasType.ADVANCED;
             _text.condenseWhite = true;
-            _text.defaultTextFormat.bold = false;
+            _text.defaultTextFormat.bold = true;
             _text.defaultTextFormat.align = TextFormatAlign.CENTER;
-
-            _text.htmlText = itemConfig.label;
+            
+			_text.styleSheet = style;
+            _text.htmlText = "<p class='menuItem'>" + itemConfig.label + "</p>";
             addChild(_text);
 
             if (config.imageUrl) {

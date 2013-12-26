@@ -280,8 +280,6 @@ package org.flowplayer.controls {
 		public function get centeredWidget():String {
 			return _controlbar.centeredWidget;
 		}
-
-		
 		
 		/* Resize stuff */
 
