@@ -35,7 +35,7 @@ package org.flowplayer.ui.controllers {
 			var button:GenericTooltipButton = new GenericTooltipButton( 
 												new faceClass(), 
 												((_config as ToggleButtonConfig).config as TooltipButtonConfig), 
-												_player.animationEngine);
+												_player.animationEngine, _player);
 
              //#443 set accessibility options for button widget
             setAccessible(button, name);
@@ -43,7 +43,7 @@ package org.flowplayer.ui.controllers {
 			var downButton:GenericTooltipButton = new GenericTooltipButton(
 												new downFaceClass(), 
 												((_config as ToggleButtonConfig).downConfig as TooltipButtonConfig), 
-												_player.animationEngine);
+												_player.animationEngine, _player);
 
              //#443 set accessibility options for button widget
             setAccessible(downButton,  downName);

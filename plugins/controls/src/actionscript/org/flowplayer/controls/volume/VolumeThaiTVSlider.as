@@ -15,11 +15,11 @@ package org.flowplayer.controls.volume {
 	import org.flowplayer.view.Flowplayer;
 	import org.flowplayer.controls.SkinClasses;
 	import org.flowplayer.controls.controllers.VolumeButtonController;
-
+    import org.flowplayer.ui.buttons.ConfigurableWidget;
 	/**
 	 * @author api
 	 */
-	public class VolumeThaiTVSlider extends Sprite {
+	public class VolumeThaiTVSlider extends ConfigurableWidget {
 
 		private var _volumeBar:Sprite;
 		private var _volumeDragger:DisplayObjectContainer;
@@ -57,7 +57,7 @@ package org.flowplayer.controls.volume {
 		private function drawBackground():void {
 			_bg = new Sprite();
 			_bg.graphics.beginFill(0x000000, 0.7); //Last arg is the alpha
-			_bg.graphics.drawRoundRect(0, 0, 27, 120, 25, 25);
+			_bg.graphics.drawRoundRect(0, 0, 27, 500, 25, 25);
 			_bg.graphics.endFill();
 			
 			addChild(_bg);

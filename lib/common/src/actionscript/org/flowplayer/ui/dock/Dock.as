@@ -118,7 +118,7 @@ package org.flowplayer.ui.dock {
         }
 
         public function addToPanel():void {
-            log.debug("addToPanel()");
+            log.debug("addToPanel(), _player.panel: " + _player.panel);
             _player.panel.addView(this, null, _config.model);
 
             //#479 check if autoHide is configured as false as well as an object.

@@ -11,9 +11,11 @@ package org.flowplayer.ui.buttons {
 	
     import flash.display.DisplayObjectContainer;
     import org.flowplayer.view.AnimationEngine;
+    import org.flowplayer.view.Flowplayer;
 	
 	import org.flowplayer.ui.buttons.TooltipButtonConfig;
 	import org.flowplayer.ui.buttons.AbstractTooltipButton;
+	
 
 
 	/**
@@ -23,9 +25,9 @@ package org.flowplayer.ui.buttons {
 
 		private var _buttonFace:DisplayObjectContainer;
 
-		public function GenericTooltipButton(face:DisplayObjectContainer, config:TooltipButtonConfig, animationEngine:AnimationEngine) {
+		public function GenericTooltipButton(face:DisplayObjectContainer, config:TooltipButtonConfig, animationEngine:AnimationEngine, player:Flowplayer) {
 			_buttonFace = face;
-			super(config, animationEngine);
+			super(config, animationEngine,player);
 		}
 
         override protected function createFace():DisplayObjectContainer {

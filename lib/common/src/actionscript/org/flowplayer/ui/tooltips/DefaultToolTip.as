@@ -40,7 +40,13 @@ package org.flowplayer.ui.tooltips {
 		private var _config:TooltipButtonConfig;
 		private var log:Log = new Log(this);
 		
+		[Embed(source="./fonts/cmprasanmit.ttf", fontFamily="cmprasanmit", mimeType="application/x-font-truetype", 
+    embedAsCFF="false", unicodeRange="U+0020-007E,U+0E01-0E5B")] 
+        public var cmprasanmitFont:Class;
+		
 		public function DefaultToolTip(config:TooltipButtonConfig, animationEngine:AnimationEngine):void {
+			
+			Font.registerFont(cmprasanmitFont);
 			_config = config;
 			_animationEngine = animationEngine;
 			this.mouseEnabled = false;
@@ -193,6 +199,7 @@ package org.flowplayer.ui.tooltips {
 		private function createField( deviceFont:Boolean ):TextField {
 			var tf:TextField = new TextField();
 			tf.embedFonts = ! deviceFont;
+			//tf.embedFonts = true;
 			tf.gridFitType = "pixel";
 			//tf.border = true;
 			tf.autoSize = TextFieldAutoSize.LEFT;
@@ -321,8 +328,10 @@ package org.flowplayer.ui.tooltips {
 		private function initTitleFormat():void {
 			_titleFormat = new TextFormat();
 			_titleFormat.font = "_sans";
+			//_titleFormat.font = "cmprasanmit";
+			
 			_titleFormat.bold = true;
-			_titleFormat.size = 10;
+			_titleFormat.size = 12;
 			_titleFormat.color = _config.tooltipTextColor;
 		}
 		
@@ -330,7 +339,7 @@ package org.flowplayer.ui.tooltips {
 			_contentFormat = new TextFormat();
 			_contentFormat.font = "_sans";
 			_contentFormat.bold = false;
-			_contentFormat.size = 12;
+			_contentFormat.size = 14;
 			_contentFormat.color = 0x333333;
 		}
 

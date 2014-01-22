@@ -34,7 +34,7 @@ package org.flowplayer.ui.controllers {
 		}
 				
 		override protected function createWidget():void {
-			_widget = new GenericTooltipButton(new faceClass(), _config as TooltipButtonConfig, _player.animationEngine);
+			_widget = new GenericTooltipButton(new faceClass(), _config as TooltipButtonConfig, _player.animationEngine, _player);
             //#443 set accessibility options for button widget
             setAccessible(_widget, name);
 		}

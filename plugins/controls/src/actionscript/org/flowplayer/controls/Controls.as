@@ -110,7 +110,7 @@ package org.flowplayer.controls {
 
             createControlBarMover();
         
-    		addChild(_controlbar);
+    			addChild(_controlbar);
 			
 			updateControlbar();
 			

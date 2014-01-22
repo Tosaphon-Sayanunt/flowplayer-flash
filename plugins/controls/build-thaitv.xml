@@ -10,10 +10,9 @@
     <property name="releasedir" value="flowplayer.controls" />
 
     <!-- location of the skin swd, anc swc -->
-    <property name="library-path" value="src/flash/thaiTv" />
+    <property name="library-path" value="src/flash/thaiTv ../../lib/common/src/flash" />
 
     <property name="extra-sources" value="../../lib/common/src/actionscript" />
-
 
     <property file="${devkit-dir}/plugin-build.properties" />
     <import file="${devkit-dir}/plugin-build.xml"/>
