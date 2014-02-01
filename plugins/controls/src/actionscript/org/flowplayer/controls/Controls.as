@@ -408,8 +408,6 @@ package org.flowplayer.controls {
 
         }
 
-
-      
         private function onPlayStopped(event:ClipEvent):void {
             log.debug("received " + event);
 

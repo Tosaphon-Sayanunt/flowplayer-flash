@@ -162,7 +162,7 @@ package org.flowplayer.ui {
                 return;
             }
 
-            log.warn("HIDING ? " + (ignoreMouseOver ? 'true ' : 'false ') + (_mouseOver ? 'true ' : 'false '))
+            //log.warn("HIDING ? " + (ignoreMouseOver ? 'true ' : 'false ') + (_mouseOver ? 'true ' : 'false '))
             if (! ignoreMouseOver && _mouseOver) return;
 
             log.debug("dispatching onBeforeHidden");
@@ -266,18 +266,19 @@ package org.flowplayer.ui {
             _stage.addEventListener(Event.MOUSE_LEAVE, startMouseOutTimer);
             _stage.addEventListener(FullScreenEvent.FULL_SCREEN, onFullScreen);
             _stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+            _stage.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
             _stage.addEventListener(Event.RESIZE, onStageResize);
             _disp.addEventListener(MouseEvent.ROLL_OVER, onMouseOver);
             _disp.addEventListener(MouseEvent.ROLL_OUT, onMouseOut);
         }
 
         private function onMouseOver(event:MouseEvent):void {
-            //log.warn("MOUSE OVER");
+            log.warn("auto hide MOUSE OVER");
             _mouseOver = true;
         }
 
         private function onMouseOut(event:MouseEvent):void {
-            //log.warn("MOUSE OUT");
+            log.warn("auto hide MOUSE OUT");
             _mouseOver = false;
         }
 
