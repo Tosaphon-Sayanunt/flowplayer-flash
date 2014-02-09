@@ -29,6 +29,8 @@ package org.flowplayer.volume.ui {
     import org.flowplayer.util.TextUtil;
     import org.flowplayer.view.AnimationEngine;
     import org.flowplayer.view.Flowplayer;
+    
+    import flash.external.*;
 
     public class VolumeItem extends AbstractButton {
 
@@ -61,6 +63,8 @@ package org.flowplayer.volume.ui {
 	            _boundingBox = new Rectangle(0,0,0,_sliderHeight);  
 	  			_bar.mDragger.addEventListener(MouseEvent.MOUSE_DOWN, dragKnob);  
 				_bar.mDragger.buttonMode=true;
+				
+				_bar.addEventListener(MouseEvent.MOUSE_DOWN, clickBar);  
 	
 	            addChild(_bar);
         }
@@ -69,6 +73,15 @@ package org.flowplayer.volume.ui {
             super.onAddedToStage(event);
             
             stage.addEventListener(MouseEvent.MOUSE_UP, releaseKnob); 
+        }
+        
+        private function clickBar(event:MouseEvent):void {
+        		if(!_dragging) {
+	        		var newPos:Number = event.localY;
+	        		_bar.mFiller.y = _bar.mDragger.y = newPos;
+				var myVolume:Number= (newPos - 100) * -1; 
+			    updateVolumeBar(myVolume);
+		    }
         }
         
         private function dragKnob(myEvent:Event):void { 
@@ -85,11 +98,17 @@ package org.flowplayer.volume.ui {
 		}
 		
 		private function adjustVolume(myEvent:Event):void { 
-		    var myVolume:Number= (_bar.mDragger.y - 100) * -1; 
-		    _bar.mFiller.y = _bar.mDragger.y;
-		    _bar.mFiller.height = myVolume;
-		   _player.volume = myVolume;  
+			if(_dragging) { 
+				_bar.mFiller.y = _bar.mDragger.y;
+				var myVolume:Number= (_bar.mDragger.y - 100) * -1; 
+			    updateVolumeBar(myVolume);
+		    }	
 		} 
+		
+		private function updateVolumeBar(newNum:Number):void {
+		    _bar.mFiller.height = newNum;
+		    _player.volume = newNum;
+		}
 
         override protected function onResize():void {
             log.debug("onResize() " + width + " x " + height);
