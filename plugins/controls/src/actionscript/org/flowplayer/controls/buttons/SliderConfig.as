@@ -22,6 +22,9 @@ package org.flowplayer.controls.buttons {
 		private var _draggerButtonConfig:TooltipButtonConfig;
 		
 		private var _enabled:Boolean = true;
+		
+		
+		private var _thumbnailsURL:String;
 
         /*
          * Color.
@@ -105,6 +108,14 @@ package org.flowplayer.controls.buttons {
 		
 		public function setEnabled(value:Boolean):void {
 			_enabled = value;
+		}
+		
+		public function get thumbnailsURL():String {
+			return _thumbnailsURL;
+		}
+		
+		public function setThumbnailsURL(value:String):void {
+			_thumbnailsURL = value;
 		}
     }
 }

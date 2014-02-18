@@ -210,6 +210,8 @@ package org.flowplayer.controls.config {
 			config.setBorder(fixBorder('sliderBorder'));
 			config.setBorderRadius(_style['scrubberBorderRadius']);
 			config.setHeightRatio(_style['scrubberHeightRatio']);
+			
+			config.setThumbnailsURL(_style['thumbnailsURL']);
 
 			return config;
 		}
