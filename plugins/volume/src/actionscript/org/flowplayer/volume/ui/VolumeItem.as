@@ -109,6 +109,12 @@ package org.flowplayer.volume.ui {
 		    _bar.mFiller.height = newNum;
 		    _player.volume = newNum;
 		}
+		
+		public function externalUpdateVolume(num:Number):void {
+			_bar.mDragger.y = (num == 0) ? 100 : 100 - num;
+			_bar.mFiller.height = num;
+		    _player.volume = num;
+		}
 
         override protected function onResize():void {
             log.debug("onResize() " + width + " x " + height);

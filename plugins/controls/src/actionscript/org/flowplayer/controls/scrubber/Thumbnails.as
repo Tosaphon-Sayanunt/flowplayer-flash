@@ -21,6 +21,7 @@ package org.flowplayer.controls.scrubber
 		private var _mask:Shape;
 		private var _loader:Loader;
 		private var _text:TextField;
+		private var _loaded:Boolean;
 		
 		public function Thumbnails(imageUrl:String, text:TextField){
 			_text = text;
@@ -45,6 +46,7 @@ package org.flowplayer.controls.scrubber
         }
 
         private function completeHandler(event:Event):void {
+			_loaded = true;
 			_loader.x = 5;
 			_loader.y = 5;
 			
@@ -62,7 +64,7 @@ package org.flowplayer.controls.scrubber
         }
 
         private function ioErrorHandler(event:IOErrorEvent):void {
-            
+            _loaded = false;
         }
 
         private function openHandler(event:Event):void {
@@ -137,6 +139,9 @@ package org.flowplayer.controls.scrubber
 			}	
 		}
 		
+		public function get Loaded():Boolean {
+			return _loaded;
+		}
 		
 	}
 }
