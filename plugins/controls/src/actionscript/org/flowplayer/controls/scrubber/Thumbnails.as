@@ -118,7 +118,7 @@ package org.flowplayer.controls.scrubber
             format.align = TextFormatAlign.CENTER;
              _text.defaultTextFormat = format;
              _text.alpha = 0.6;
-            _text.width = 50;
+            _text.width = 60;
             _text.height = 20;
             _text.y = 50;
             _text.x = 28;
