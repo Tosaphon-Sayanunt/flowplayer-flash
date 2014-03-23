@@ -72,7 +72,9 @@ package org.flowplayer.volume.ui {
         override protected function onAddedToStage(event:Event):void {
             super.onAddedToStage(event);
             
-            stage.addEventListener(MouseEvent.MOUSE_UP, releaseKnob); 
+            if(stage) {
+            		stage.addEventListener(MouseEvent.MOUSE_UP, releaseKnob); 
+            }
         }
         
         private function clickBar(event:MouseEvent):void {
