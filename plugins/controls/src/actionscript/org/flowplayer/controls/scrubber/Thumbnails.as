@@ -126,11 +126,8 @@ package org.flowplayer.controls.scrubber
 		}
 		
 		public function setThumbnailsIndex(index:Number):void {
-			if(index <= 1) {
-				_loader.x = 5;
-			} else {
-				_loader.x = (index * -100)  + 105;
-			}
+			if(index >= 30) index = 29;
+				_loader.x = ((index+1) * -100)  + 105;
 		}
 		
 		public function setTimeText(time:String):void {
