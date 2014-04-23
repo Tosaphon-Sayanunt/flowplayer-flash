@@ -29,6 +29,7 @@ package org.flowplayer.controller {
 	import org.flowplayer.util.Log;
 	import org.flowplayer.view.PlayerEventDispatcher;
 	
+	import flash.external.ExternalInterface;
 	import flash.utils.Dictionary;		
 	
 	use namespace flow_internal;
@@ -111,6 +112,9 @@ package org.flowplayer.controller {
 		}
 
         flow_internal function playInstream(clip:Clip):void {
+        		//Hack to let player know if playInstream
+        		ExternalInterface.call("window.thaitv.setInstreamPause", true);
+        		//End Hack
             _state.pause();
             playlist.setInStreamClip(clip);
             setPlayState(PlayState.waitingState);            

@@ -97,13 +97,20 @@
         <delete dir="${build-dir}/example"></delete>
     </target>
 
+    <target name="dobuild-min" depends="check-uptodate, build-lib" unless="uptodate.main">
+        <antcall target="prepare"/>
+        <property name="licenselib" value="${lib-dir}/licensekey"/>
+        <antcall target="compile-commercial"/>
+        <example player-swf="${player-binary-versioned}" example-dir="example-free"/>
+    </target>
+
     <target name="dobuild" depends="check-uptodate, build-lib, plugins" unless="uptodate.main">
         <antcall target="prepare"/>
         <property name="licenselib" value="${lib-dir}/licensekey"/>
         <antcall target="compile"/>
         <example player-swf="${player-binary-versioned}" example-dir="example-free"/>
     </target>
-
+	
     <target name="deploy" if="deploy.dir" description="copies swf and js to deploy dirs" depends="jsplugins">
         <copy todir="${deploy.dir}" overwrite="true">
             <fileset dir="${build-dir}">
@@ -139,6 +146,7 @@
     </target>
 
     <target name="compile">
+        <property name="licenselib" value="${lib-dir}/licensekey"/>
         <compile-player binary="${player-binary}" commercial="false" free="true" license-lib="${licenselib}"
                         debug="false"/>
         <copy file="${build-dir}/${player-binary}" tofile="${build-dir}/${player-binary-versioned}"/>
