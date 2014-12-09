@@ -19,6 +19,9 @@ package org.flowplayer.menu.ui {
     import flash.text.TextField;
     import flash.text.TextFieldAutoSize;
     import flash.text.TextFieldType;
+    import flash.text.TextFormatAlign;
+    import flash.text.Font;
+    import flash.text.StyleSheet;
 
     import fp.TickMark;
 
@@ -40,11 +43,18 @@ package org.flowplayer.menu.ui {
         private var _selected:Boolean;
 
         private var _buffer:int = 10;
+        
+        //embed font
+		[Embed(source="../cmprasanmit.ttf", fontName = "cmprasanmit", fontFamily="cmprasanmit", mimeType="application/x-font-truetype", 
+    embedAsCFF="false", unicodeRange="U+0020-007E,U+0E01-0E5B")] 
+        public var cmprasanmitFont:Class;
 
         public function MenuItem(player:Flowplayer, config:MenuItemConfig, animationEngine:AnimationEngine) {
             _player = player;
 
             super(config, animationEngine);
+            
+            Font.registerFont(cmprasanmitFont);
 
         }
 
@@ -85,27 +95,37 @@ package org.flowplayer.menu.ui {
                 }
             }
 
+            
+            var style:StyleSheet = new StyleSheet();
+			style.setStyle(".menuItem", {fontFamily: "cmprasanmit", fontSize: 18, fontWeight:"bold"});
+
+
             //#71 set the default selection
             _selected = itemConfig.selected;
 
             _text = addChild(TextUtil.createTextField(false, null, 12, true)) as TextField;
+            _text.embedFonts = true;
             _text.selectable = false;
             _text.type = TextFieldType.DYNAMIC;
             _text.textColor = config.fontColor;
+            //_text.textColor = 0x3399FF;
             _text.blendMode = BlendMode.LAYER;
             _text.autoSize = TextFieldAutoSize.CENTER;
             _text.wordWrap = true;
             _text.multiline = true;
             _text.antiAliasType = AntiAliasType.ADVANCED;
             _text.condenseWhite = true;
-            _text.defaultTextFormat.bold = false;
-
-            _text.htmlText = itemConfig.label;
+            _text.defaultTextFormat.bold = true;
+            _text.defaultTextFormat.align = TextFormatAlign.CENTER;
+            
+			_text.styleSheet = style;
+            _text.htmlText = "<p class='menuItem'>" + itemConfig.label + "</p>";
             addChild(_text);
 
             if (config.imageUrl) {
                 loadImage();
             }
+            
         }
 
         private function loadImage():void {
@@ -143,10 +163,10 @@ package org.flowplayer.menu.ui {
             }
 
             if (itemConfig.toggle) {
-                _tickMark.height = 12;
+                _tickMark.height = 9;
                 _tickMark.scaleX = _tickMark.scaleY;
                 Arrange.center(_tickMark, 0, height);
-                _tickMark.y = _tickMark.y - 2; // adjust it a bit
+                //_tickMark.y = _tickMark.y - 2; // adjust it a bit
                 _tickMark.x = _image ? (_image.x + _image.width) : _buffer;
                 //#498 resize the label text if a tickmark is configured.
                 _text.width = _text.width - _tickMark.width;
@@ -154,7 +174,7 @@ package org.flowplayer.menu.ui {
                 Arrange.center(_text, 0, height);
             } else {
 
-                _text.x = _image ? (_image.x + _image.width + _buffer) : _buffer;
+                _text.x = _image ? (_image.x + _image.width + _buffer) : _buffer + 5;
                 Arrange.center(_text,  0, height);
             }
 
